@@ -95,7 +95,7 @@ public class Voting implements HandleBotEvents, LoadConfiguration, HandleClientL
 
 	@Override
 	public String getCopyright() {
-		return "Voting function v1.4 (29.06.2019) created by Sascha Moser (Xopez), [url]https://mightful-noobs.de[/url]";
+		return "Voting function v1.5 (20.06.2020) created by Sascha Moser (Xopez), [url]https://mightful-noobs.de[/url]";
 	}
 
 	public boolean loadConfig(ArrangedPropertiesWriter config, boolean slowMode)
