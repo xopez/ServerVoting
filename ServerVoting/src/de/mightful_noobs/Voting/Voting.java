@@ -102,7 +102,7 @@ public class Voting implements HandleBotEvents, LoadConfiguration, HandleClientL
 			throws BotConfigurationException, NumberFormatException {
 		String temp = null;
 		pluginEnabled = false;
-		String entry="";
+		String entry = "";
 		entry = "====================";
 		addLogEntry(entry, "Info");
 		entry = "Voting is loading...";
@@ -118,27 +118,27 @@ public class Voting implements HandleBotEvents, LoadConfiguration, HandleClientL
 				throw new NumberFormatException();
 			}
 			sgid = temp;
-			entry="Servergroup-ID: " + sgid.toString();
+			entry = "Servergroup-ID: " + sgid.toString();
 			addLogEntry(entry, "Info");
-			
+
 			temp = config.getValue(configPrefix + "_key");
 			if (temp == null) {
 				throw new NullPointerException();
 			}
 			key = temp;
-			entry="API-Key: " + key.toString();
+			entry = "API-Key: " + key.toString();
 			addLogEntry(entry, "Info");
-			
+
 			temp = config.getValue(configPrefix + "_message");
 			if (temp == null) {
 				throw new NullPointerException();
 			}
 			message = temp;
-			entry="Message: \"" + message.toString() + "\"";
+			entry = "Message: \"" + message.toString() + "\"";
 			addLogEntry(entry, "Info");
-			
+
 			pluginEnabled = true;
-			entry="Started successfully!";
+			entry = "Started successfully!";
 			addLogEntry(entry, "Info");
 			entry = "====================";
 			addLogEntry(entry, "Info");
@@ -211,8 +211,8 @@ public class Voting implements HandleBotEvents, LoadConfiguration, HandleClientL
 	public int setClaim(String clientNickname, String clientDBId, int clientId) throws Exception {
 		int claim = 0;
 		try {
-			String url = "https://teamspeak-servers.org/api/?action=post&object=votes&element=claim&key=" + key + "&username="
-					+ clientNickname.replace(" ", "%20");
+			String url = "https://teamspeak-servers.org/api/?action=post&object=votes&element=claim&key=" + key
+					+ "&username=" + clientNickname.replace(" ", "%20");
 			claim = Integer.valueOf(URLReader(url));
 			setServerGroup(clientNickname, clientDBId, clientId);
 		} catch (Exception e) {
@@ -229,7 +229,7 @@ public class Voting implements HandleBotEvents, LoadConfiguration, HandleClientL
 			queryLib.doCommand("servergroupaddclient sgid=" + sgid + " cldbid=" + clientDBId);
 			String msg = "Servergruppe " + sgid + " zu " + clientNickname + " hinzugefügt";
 			queryLib.sendTextMessage(clientId, JTS3ServerQuery.TEXTMESSAGE_TARGET_CLIENT, message);
-			addLogEntry(msg,"Info");
+			addLogEntry(msg, "Info");
 			fel.clearException(Integer.parseInt(clientDBId));
 		} catch (TS3ServerQueryException sqe) {
 			// This prevents flooding the log file with error messages, if a missing
@@ -239,9 +239,9 @@ public class Voting implements HandleBotEvents, LoadConfiguration, HandleClientL
 				fel.addException(sqe, Integer.parseInt(clientDBId));
 
 				// Adding error message to the bot log.
-				String entry="Cannot send chat command answer to client \"" + clientNickname + "\" (db id: " + clientId
-						+ "), an error occurred while sending message to client!";
-				addLogEntry(entry,"Error");
+				String entry = "Cannot send chat command answer to client \"" + clientNickname + "\" (db id: "
+						+ clientId + "), an error occurred while sending message to client!";
+				addLogEntry(entry, "Error");
 				modClass.addLogEntry(configPrefix, sqe, false);
 			}
 		}
@@ -263,22 +263,21 @@ public class Voting implements HandleBotEvents, LoadConfiguration, HandleClientL
 		}
 		return sb.toString();
 	}
-	
+
 	@Override
 	public void setListModes(BitSet listOptions) {
 		listOptions.set(1);
 		listOptions.set(4);
 	}
-	
+
 	public void addLogEntry(String entry, String level) {
 		if (level == "Info") {
-			modClass.addLogEntry(configPrefix, JTS3ServerMod_Interface.ERROR_LEVEL_INFO, entry, true);}
-		else if (level == "Error") {
-			modClass.addLogEntry(configPrefix, JTS3ServerMod_Interface.ERROR_LEVEL_ERROR, entry, false);	
+			modClass.addLogEntry(configPrefix, JTS3ServerMod_Interface.ERROR_LEVEL_INFO, entry, true);
+		} else if (level == "Error") {
+			modClass.addLogEntry(configPrefix, JTS3ServerMod_Interface.ERROR_LEVEL_ERROR, entry, false);
+		} else {
+			modClass.addLogEntry(configPrefix, JTS3ServerMod_Interface.ERROR_LEVEL_INFO, "UNDEF", true);
 		}
-		else {
-			modClass.addLogEntry(configPrefix, JTS3ServerMod_Interface.ERROR_LEVEL_INFO, "UNDEF", true);}
-		}
-	
-	
+	}
+
 }
