@@ -175,7 +175,7 @@ public class Voting implements HandleBotEvents, LoadConfiguration, HandleClientL
 						break;
 					case 1:
 						try {
-							int claim = setClaim(clientNickname, clientDbId, clientId);
+							setClaim(clientNickname, clientDbId, clientId);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
